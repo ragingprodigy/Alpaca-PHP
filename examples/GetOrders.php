@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 /**
  * Created by: Oladapo Omonayajo <o.omonayajo@gmail.com>
- * Created on: 2019-06-27, 15:29.
+ * Created on: 2019-06-27, 19:43.
  * @license Apache-2.0
  */
 
+use Dotenv\Dotenv;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotEnv = Dotenv\Dotenv::create(__DIR__ . '/../');
+$dotEnv = Dotenv::create(__DIR__ . '/../');
 $dotEnv->load();
 
 $client = new \RagingProdigy\Alpaca\Client(
@@ -20,10 +22,6 @@ $client = new \RagingProdigy\Alpaca\Client(
     )
 );
 
-try {
-    $account = $client->getAccount();
-    echo "Buying Power: {$account->getBuyingPower()}\n\n";
-    echo $account;
-} catch (Exception $e) {
-}
+$orders = $client->getOrders();
 
+print_r($orders);

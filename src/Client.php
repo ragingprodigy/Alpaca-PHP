@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Created by: bernard <o.omonayajo@gmail.com>
+ * Created by: Oladapo Omonayajo <o.omonayajo@gmail.com>
  * Created on: 2019-06-27, 14:44.
  * @license Apache-2.0
  */
@@ -15,6 +15,7 @@ use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
+use RagingProdigy\Alpaca\Traits\ManagesOrders;
 use RagingProdigy\Alpaca\Traits\RetrievesAccount;
 use RuntimeException;
 
@@ -23,7 +24,7 @@ use RuntimeException;
  */
 class Client
 {
-    use RetrievesAccount;
+    use RetrievesAccount, ManagesOrders;
 
     /**
      * @var string
@@ -72,7 +73,8 @@ class Client
         $this->httpClient = new HttpClient([
             'handler' => $stack,
             RequestOptions::ALLOW_REDIRECTS => true,
-            RequestOptions::TIMEOUT => 0,
+            RequestOptions::CONNECT_TIMEOUT => 15,
+            RequestOptions::TIMEOUT => 30,
             RequestOptions::VERIFY => false,
         ]);
     }
@@ -136,9 +138,15 @@ class Client
         return $this->sendRequest('GET', $endPoint, $params);
     }
 
-    protected function post(string $endPoint, array $body = [])
+    /**
+     * @param string $endPoint
+     * @param array $body
+     * @return array
+     * @throws GuzzleException
+     */
+    protected function post(string $endPoint, array $body = []): array
     {
-
+        return $this->sendRequest('POST', $endPoint, [], $body);
     }
 
     protected function put(string $endPoint, array $body = [])

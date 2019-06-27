@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Created by: bernard <o.omonayajo@gmail.com>
+ * Created by: Oladapo Omonayajo <o.omonayajo@gmail.com>
  * Created on: 2019-06-27, 15:15.
  * @license Apache-2.0
  */

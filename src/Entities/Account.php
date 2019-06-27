@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Created by: bernard <o.omonayajo@gmail.com>
+ * Created by: Oladapo Omonayajo <o.omonayajo@gmail.com>
  * Created on: 2019-06-27, 18:17.
  * @license Apache-2.0
  */
@@ -11,11 +11,12 @@ namespace RagingProdigy\Alpaca\Entities;
 
 use DateTime;
 use Exception;
+use JsonSerializable;
 
 /**
  * Class Account.
  */
-class Account implements \JsonSerializable
+class Account implements JsonSerializable
 {
     /** @var array */
     private $raw;
