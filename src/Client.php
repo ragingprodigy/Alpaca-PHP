@@ -101,7 +101,6 @@ class Client
      */
     private function sendRequest(string $method, string $endPoint, array $params = [], array $body = null): array
     {
-        /** @noinspection PhpComposerExtensionStubsInspection */
         $request = new Request(
             $method,
             $this->buildFullUrl($endPoint),
@@ -149,13 +148,24 @@ class Client
         return $this->sendRequest('POST', $endPoint, [], $body);
     }
 
-    protected function put(string $endPoint, array $body = [])
+    /**
+     * @param string $endPoint
+     * @param array $body
+     * @return array
+     * @throws GuzzleException
+     */
+    protected function put(string $endPoint, array $body = []): array
     {
-
+        return $this->sendRequest('PUT', $endPoint, [], $body);
     }
 
-    protected function delete(string $endPoint)
+    /**
+     * @param string $endPoint
+     * @return array
+     * @throws GuzzleException
+     */
+    protected function delete(string $endPoint): array
     {
-
+        return $this->sendRequest('DELETE', $endPoint);
     }
 }
