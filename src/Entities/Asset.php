@@ -39,6 +39,10 @@ class Asset implements JsonSerializable
     /** @var bool */
     private $easyToBorrow;
 
+    /**
+     * Asset constructor.
+     * @param array $params
+     */
     public function __construct(array $params)
     {
         $this->raw = $params;

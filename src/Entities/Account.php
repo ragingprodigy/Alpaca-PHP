@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Entities;
 
-use DateTime;
-use Exception;
 use JsonSerializable;
 
 /**
@@ -43,7 +41,7 @@ class Account implements JsonSerializable
     private $transfersBlocked;
     /** @var bool */
     private $accountBlocked;
-    /** @var DateTime */
+    /** @var string */
     private $createdAt;
     /** @var bool */
     private $shortingEnabled;
@@ -69,7 +67,6 @@ class Account implements JsonSerializable
     /**
      * Account constructor.
      * @param array $params
-     * @throws Exception
      */
     public function __construct(array $params)
     {
@@ -85,7 +82,7 @@ class Account implements JsonSerializable
         $this->tradingBlocked = $params['trading_blocked'];
         $this->transfersBlocked = $params['transfers_blocked'];
         $this->accountBlocked = $params['account_blocked'];
-        $this->createdAt = new DateTime($params['created_at']);
+        $this->createdAt = $params['created_at'];
         $this->shortingEnabled = $params['shorting_enabled'];
         $this->longMarketValue = (double) $params['long_market_value'];
         $this->shortMarketValue = (double) $params['short_market_value'];
@@ -187,9 +184,9 @@ class Account implements JsonSerializable
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }

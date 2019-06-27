@@ -15,6 +15,7 @@ use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
+use RagingProdigy\Alpaca\Traits\GetsClock;
 use RagingProdigy\Alpaca\Traits\ManagesOrders;
 use RagingProdigy\Alpaca\Traits\RetrievesAccount;
 use RuntimeException;
@@ -24,7 +25,7 @@ use RuntimeException;
  */
 class Client
 {
-    use RetrievesAccount, ManagesOrders;
+    use RetrievesAccount, ManagesOrders, GetsClock;
 
     /**
      * @var string

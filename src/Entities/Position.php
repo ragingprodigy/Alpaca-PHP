@@ -52,6 +52,10 @@ class Position implements JsonSerializable
     /** @var double */
     private $changeToday;
 
+    /**
+     * Position constructor.
+     * @param array $params
+     */
     public function __construct(array $params)
     {
         $this->raw = $params;

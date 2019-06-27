@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace RagingProdigy\Alpaca\Entities;
 
 use DateTime;
-use Exception;
 use JsonSerializable;
 
 /**
@@ -72,7 +71,6 @@ class Order implements JsonSerializable
     /**
      * Order constructor.
      * @param array $params
-     * @throws Exception
      */
     public function __construct(array $params)
     {
