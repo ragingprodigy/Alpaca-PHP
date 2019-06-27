@@ -159,7 +159,7 @@ trait ManagesOrders
             throw new InvalidApiUsageException('Please specify a Stop Price to use this Order Type');
         }
 
-        if (!$limitPrice && (OrderType::LIMIT === $type || OrderType::STOP_LIMIT)) {
+        if (!$limitPrice && (OrderType::LIMIT === $type || OrderType::STOP_LIMIT === $type)) {
             throw new InvalidApiUsageException('Please specify a Limit Price to use this Order Type');
         }
     }

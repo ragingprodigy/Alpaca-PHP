@@ -7,21 +7,16 @@ declare(strict_types=1);
  * @license Apache-2.0
  */
 
-use Dotenv\Dotenv;
+include 'header.php';
 
-require __DIR__ . '/../vendor/autoload.php';
+$orders = $client->getOrders(\RagingProdigy\Alpaca\Constants\OrderStatus::ALL);
 
-$dotEnv = Dotenv::create(__DIR__ . '/../');
-$dotEnv->load();
+foreach ($orders as $order) {
+    echo $order . "\n";
+}
 
-$client = new \RagingProdigy\Alpaca\Client(
-    new \RagingProdigy\Alpaca\Config(
-        getenv('ALPACA_API_KEY'),
-        getenv('ALPACA_SECRET_KEY'),
-        true
-    )
-);
-
-$orders = $client->getOrders();
-
-print_r($orders);
+try {
+    $singleOrder = $client->getOrder('88ca1d07-66ff-42f8-b363-7158f1d32022');
+    echo $singleOrder;
+} catch (Exception $e) {
+}

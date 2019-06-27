@@ -25,19 +25,19 @@ class Order implements JsonSerializable
     /** @var string */
     private $clientOrderId;
     
-    /** @var DateTime */
+    /** @var string|null */
     private $createdAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $updatedAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $submittedAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $filledAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $expiredAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $canceledAt;
-    /** @var DateTime|null */
+    /** @var string|null */
     private $failedAt;
     
     /** @var string */
@@ -80,14 +80,14 @@ class Order implements JsonSerializable
         
         $this->id = $params['id'];
         $this->clientOrderId = $params['client_order_id'];
-        $this->createdAt = new DateTime($params['created_at']);
+        $this->createdAt = $params['created_at'];
         
-        $this->updatedAt = $params['updated_at'] ? new DateTime($params['updated_at']) : null;
-        $this->submittedAt = $params['submitted_at'] ? new DateTime($params['submitted_at']) : null;
-        $this->filledAt = $params['filled_at'] ? new DateTime($params['filled_at']) : null;
-        $this->expiredAt = $params['expired_at'] ? new DateTime($params['expired_at']) : null;
-        $this->canceledAt = $params['canceled_at'] ? new DateTime($params['canceled_at']) : null;
-        $this->failedAt = $params['failed_at'] ? new DateTime($params['failed_at']) : null;
+        $this->updatedAt = $params['updated_at'];
+        $this->submittedAt = $params['submitted_at'];
+        $this->filledAt = $params['filled_at'];
+        $this->expiredAt = $params['expired_at'];
+        $this->canceledAt = $params['canceled_at'];
+        $this->failedAt = $params['failed_at'];
 
         $this->assetId = $params['asset_id'];
         $this->assetClass = $params['asset_class'];
@@ -96,14 +96,17 @@ class Order implements JsonSerializable
         $this->filledQuantity = (int) $params['filled_qty'];
         $this->type = $params['type'];
         $this->side = $params['side'];
-        $this->timeInForce = $params['string'];
+        $this->timeInForce = $params['time_in_force'];
 
         $this->limitPrice = ((double) $params['limit_price']) ?: null;
         $this->stopPrice = ((double) $params['stop_price']) ?: null;
-        $this->filledAveragePrice = ((double) $params['filled_average_price']) ?: null;
+
+        if (isset($params['filled_average_price'])) {
+            $this->filledAveragePrice = (double) $params['filled_average_price'];
+        }
 
         $this->status = $params['status'];
-        $this->extendedHours = $params['extended_hours'];
+        $this->extendedHours = $params['extended_hours'] ?? false;
     }
 
     /**
@@ -139,54 +142,6 @@ class Order implements JsonSerializable
     }
 
     /**
-     * @return DateTime|null
-     */
-    public function getUpdatedAt(): ?DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getSubmittedAt(): ?DateTime
-    {
-        return $this->submittedAt;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getFilledAt(): ?DateTime
-    {
-        return $this->filledAt;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getExpiredAt(): ?DateTime
-    {
-        return $this->expiredAt;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getCanceledAt(): ?DateTime
-    {
-        return $this->canceledAt;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getFailedAt(): ?DateTime
-    {
-        return $this->failedAt;
-    }
-
-    /**
      * @return string
      */
     public function getAssetId(): string
@@ -216,6 +171,54 @@ class Order implements JsonSerializable
     public function getQuantity(): int
     {
         return $this->quantity;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubmittedAt(): ?string
+    {
+        return $this->submittedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFilledAt(): ?string
+    {
+        return $this->filledAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExpiredAt(): ?string
+    {
+        return $this->expiredAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCanceledAt(): ?string
+    {
+        return $this->canceledAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFailedAt(): ?string
+    {
+        return $this->failedAt;
     }
 
     /**
