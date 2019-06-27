@@ -110,11 +110,15 @@ class Client
 
         $response = $this->httpClient->send($request, [ RequestOptions::QUERY => $params]);
 
-        if ($response->getStatusCode() < 300) {
-            return json_decode($response->getBody()->getContents(), true);
+        if ($response->getStatusCode() >= 300) {
+            throw new RuntimeException('Request failed with code: ' . $response->getStatusCode());
         }
 
-        throw new RuntimeException('Request failed with code: ' . $response->getStatusCode());
+        if ('DELETE' === $method) {
+            return [];
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
@@ -161,11 +165,10 @@ class Client
 
     /**
      * @param string $endPoint
-     * @return array
      * @throws GuzzleException
      */
-    protected function delete(string $endPoint): array
+    protected function delete(string $endPoint): void
     {
-        return $this->sendRequest('DELETE', $endPoint);
+        $this->sendRequest('DELETE', $endPoint);
     }
 }

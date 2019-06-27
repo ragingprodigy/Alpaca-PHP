@@ -35,6 +35,24 @@ trait ManagesOrders
     }
 
     /**
+     * @param string $clientOrderId
+     * @return Order
+     * @throws Exception
+     */
+    public function getOrderByClientOrderId(string $clientOrderId): Order
+    {
+        return new Order($this->get('orders:by_client_order_id', ['client_order_id' => $clientOrderId]));
+    }
+
+    /**
+     * @param string $orderId
+     */
+    public function cancelOrder(string $orderId): void
+    {
+        $this->delete("orders/$orderId");
+    }
+
+    /**
      * @param string $status
      * @param int $limit
      * @param string|null $after

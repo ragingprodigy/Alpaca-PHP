@@ -9,14 +9,16 @@ declare(strict_types=1);
 
 include 'header.php';
 
-$orders = $client->getOrders(\RagingProdigy\Alpaca\Constants\OrderStatus::ALL);
+//$orders = $client->getOrders(\RagingProdigy\Alpaca\Constants\OrderStatus::ALL);
+//
+//foreach ($orders as $order) {
+//    echo $order . "\n";
+//}
+//
+//try {
+//    $singleOrder = $client->getOrder('88ca1d07-66ff-42f8-b363-7158f1d32022');
+//    echo $singleOrder;
+//} catch (Exception $e) {
+//}
 
-foreach ($orders as $order) {
-    echo $order . "\n";
-}
-
-try {
-    $singleOrder = $client->getOrder('88ca1d07-66ff-42f8-b363-7158f1d32022');
-    echo $singleOrder;
-} catch (Exception $e) {
-}
+print_r($client->cancelOrder('88ca1d07-66ff-42f8-b363-7158f1d32022'));

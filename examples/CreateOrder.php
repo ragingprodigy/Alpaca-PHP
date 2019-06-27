@@ -21,7 +21,7 @@ try {
 
     $sellOrder = $client->requestOrder(
         'GE',
-        3,
+        4,
         \RagingProdigy\Alpaca\Constants\OrderAction::SELL,
         \RagingProdigy\Alpaca\Constants\OrderType::MARKET,
         \RagingProdigy\Alpaca\Constants\TimeInForce::DAY
