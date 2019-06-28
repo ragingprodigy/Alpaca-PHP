@@ -8,7 +8,9 @@ declare(strict_types=1);
  */
 include 'header.php';
 
-echo $client->getClock();
+foreach ($client->getCalendar('2019-06-01', '2019-06-28') as $calendar) {
+    echo $calendar . "\n";
+}
 
 //try {
 //    $order = $client->requestOrder(
