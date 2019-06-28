@@ -15,7 +15,7 @@ use RagingProdigy\Alpaca\Entities\Clock;
 /**
  * Trait GetsClock.
  */
-trait GetsClockAndCalendar
+trait RetrievesClockAndCalendar
 {
     /**
      * @return Clock

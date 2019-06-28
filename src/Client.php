@@ -15,10 +15,11 @@ use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use RagingProdigy\Alpaca\Traits\GetsClockAndCalendar;
-use RagingProdigy\Alpaca\Traits\ListsAssets;
 use RagingProdigy\Alpaca\Traits\ManagesOrders;
 use RagingProdigy\Alpaca\Traits\RetrievesAccount;
+use RagingProdigy\Alpaca\Traits\RetrievesAssets;
+use RagingProdigy\Alpaca\Traits\RetrievesClockAndCalendar;
+use RagingProdigy\Alpaca\Traits\RetrievesPositions;
 use RuntimeException;
 
 /**
@@ -26,7 +27,7 @@ use RuntimeException;
  */
 class Client
 {
-    use RetrievesAccount, ManagesOrders, GetsClockAndCalendar, ListsAssets;
+    use RetrievesAccount, ManagesOrders, RetrievesClockAndCalendar, RetrievesAssets, RetrievesPositions;
 
     /**
      * @var string

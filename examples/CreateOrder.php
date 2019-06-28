@@ -8,24 +8,18 @@ declare(strict_types=1);
  */
 include 'header.php';
 
-//foreach ($client->getAssets() as $calendar) {
-//    echo $calendar . "\n";
-//}
 
-//echo $client->getAsset('55f756ba-36b4-45bd-a699-2e98fa39ab75');
-//echo $client->getAsset('BBSI');
+try {
+    $order = $client->requestOrder(
+        'GE',
+        50,
+        \RagingProdigy\Alpaca\Constants\OrderAction::BUY,
+        \RagingProdigy\Alpaca\Constants\OrderType::MARKET,
+        \RagingProdigy\Alpaca\Constants\TimeInForce::DAY
+    );
 
-//try {
-//    $order = $client->requestOrder(
-//        'GE',
-//        5,
-//        \RagingProdigy\Alpaca\Constants\OrderAction::BUY,
-//        \RagingProdigy\Alpaca\Constants\OrderType::MARKET,
-//        \RagingProdigy\Alpaca\Constants\TimeInForce::DAY
-//    );
-//
-//    echo $order;
-//
+    echo $order;
+
 //    $sellOrder = $client->requestOrder(
 //        'GE',
 //        4,
@@ -35,6 +29,10 @@ include 'header.php';
 //    );
 //
 //    echo $sellOrder;
-//} catch (Exception $e) {
-//    print_r($e->getMessage());
-//}
+} catch (\RagingProdigy\Alpaca\Exceptions\InvalidApiUsageException $e) {
+    print_r($e->getMessage());
+}
+
+foreach ($client->getOpenPositions() as $calendar) {
+    echo $calendar . "\n";
+}

@@ -16,7 +16,7 @@ use RagingProdigy\Alpaca\Exceptions\InvalidApiUsageException;
 /**
  * Trait ListsAssets.
  */
-trait ListsAssets
+trait RetrievesAssets
 {
     /**
      * @param string $status
