@@ -48,7 +48,7 @@ class Asset implements JsonSerializable
         $this->raw = $params;
 
         $this->id = $params['id'];
-        $this->assetClass = $params['asset_class'];
+        $this->assetClass = $params['asset_class'] ?? $params['class'] ?? '';
         $this->exchange = $params['exchange'];
         $this->symbol = $params['symbol'];
         $this->status = $params['status'];

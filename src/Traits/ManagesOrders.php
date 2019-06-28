@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Traits;
 
-use Exception;
 use RagingProdigy\Alpaca\Constants\OrderAction;
 use RagingProdigy\Alpaca\Constants\OrderStatus;
 use RagingProdigy\Alpaca\Constants\OrderType;
@@ -27,7 +26,6 @@ trait ManagesOrders
     /**
      * @param string $orderId
      * @return Order
-     * @throws Exception
      */
     public function getOrder(string $orderId): Order
     {
@@ -37,7 +35,6 @@ trait ManagesOrders
     /**
      * @param string $clientOrderId
      * @return Order
-     * @throws Exception
      */
     public function getOrderByClientOrderId(string $clientOrderId): Order
     {
@@ -104,7 +101,6 @@ trait ManagesOrders
      * @param bool $extendedHours
      * @param null $clientOrderId
      * @return Order
-     * @throws Exception
      * @see https://docs.alpaca.markets/api-documentation/api-v2/orders/#request-a-new-order
      */
     public function requestOrder(

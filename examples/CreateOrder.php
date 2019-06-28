@@ -8,9 +8,12 @@ declare(strict_types=1);
  */
 include 'header.php';
 
-foreach ($client->getCalendar('2019-06-01', '2019-06-28') as $calendar) {
-    echo $calendar . "\n";
-}
+//foreach ($client->getAssets() as $calendar) {
+//    echo $calendar . "\n";
+//}
+
+//echo $client->getAsset('55f756ba-36b4-45bd-a699-2e98fa39ab75');
+//echo $client->getAsset('BBSI');
 
 //try {
 //    $order = $client->requestOrder(
