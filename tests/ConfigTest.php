@@ -35,4 +35,26 @@ class ConfigTest extends TestCase
         $this->assertEquals('data.base.url', $client->getDataBaseUrl());
         $this->assertEquals('polygon.base.url', $client->getPolygonUrl());
     }
+
+    public function testPaperTradingUrl(): void
+    {
+        $client = new Client(new Config(
+            'api.key',
+            'api.secret',
+            true
+        ));
+
+        $this->assertStringContainsString('paper', $client->getBaseUrl());
+    }
+
+    public function testLiveTradingConfig(): void
+    {
+        $client = new Client(new Config(
+            'api.key',
+            'api.secret',
+            false
+        ));
+
+        $this->assertStringNotContainsString('paper', $client->getBaseUrl());
+    }
 }
