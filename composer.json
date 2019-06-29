@@ -11,6 +11,7 @@
         "ext-json": "*"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8",
         "phpunit/phpunit": "^8.2",
         "vlucas/phpdotenv": "^3.4"
     },
@@ -34,7 +35,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/bootstrap.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true

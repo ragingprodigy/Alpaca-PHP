@@ -156,7 +156,9 @@ class Client
         $response = $this->httpClient->send($request, [ RequestOptions::QUERY => $params]);
 
         if ($response->getStatusCode() >= 300) {
-            throw new RuntimeException('Request failed with code: ' . $response->getStatusCode());
+            throw new RuntimeException(
+                sprintf('Request failed with code: %d', $response->getStatusCode()),
+                $response->getStatusCode());
         }
 
         if ('DELETE' === $method) {
