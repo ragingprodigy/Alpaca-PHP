@@ -21,6 +21,7 @@ use RagingProdigy\Alpaca\Entities\Account;
 use RagingProdigy\Alpaca\Entities\Asset;
 use RagingProdigy\Alpaca\Entities\Calendar;
 use RagingProdigy\Alpaca\Entities\Clock;
+use RagingProdigy\Alpaca\Entities\Position;
 
 /**
  * Class ClientTestCase.
@@ -130,6 +131,27 @@ abstract class ClientTestCase extends TestCase
                 'date' => $faker->dateTimeThisMonth->format($dateFormat),
                 'open' => '09:30',
                 'close' => '16:00',
+            ];
+        });
+
+        custom_factory(Position::class, static function (Faker $faker) {
+            return [
+                'asset_id' => $faker->uuid,
+                'symbol' => $faker->word,
+                'exchange' => $faker->word,
+                'asset_class' => $faker->word,
+                'avg_entry_price' => (string) $faker->randomFloat(1),
+                'qty' => (string) $faker->randomNumber(2),
+                'side' => $faker->word,
+                'market_value' => (string) $faker->randomFloat(1),
+                'cost_basis' => (string) $faker->randomFloat(1),
+                'unrealized_pl' => (string) $faker->randomFloat(1),
+                'unrealized_plpc' => (string) $faker->randomFloat(2),
+                'unrealized_intraday_pl' => (string) $faker->randomFloat(1),
+                'unrealized_intraday_plpc' => (string) $faker->randomFloat(5),
+                'current_price' => (string) $faker->randomFloat(1),
+                'lastday_price' => (string) $faker->randomFloat(1),
+                'change_today' => (string) $faker->randomFloat(4),
             ];
         });
 
