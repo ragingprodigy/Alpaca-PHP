@@ -199,17 +199,6 @@ class Client
 
     /**
      * @param string $endPoint
-     * @param array $body
-     * @return array
-     * @throws GuzzleException
-     */
-    protected function put(string $endPoint, array $body = []): array
-    {
-        return $this->sendRequest('PUT', $endPoint, [], $body);
-    }
-
-    /**
-     * @param string $endPoint
      * @throws GuzzleException
      */
     protected function delete(string $endPoint): void

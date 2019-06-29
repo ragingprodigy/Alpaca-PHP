@@ -54,6 +54,7 @@ class AccountTest extends ClientTestCase
 
         $apiAccount = $this->alpacaClient->getAccount();
         $this->assertEquals($account, $apiAccount->jsonSerialize());
+        $this->assertEquals(json_encode($account), $apiAccount);
 
         $this->assertEquals($account['id'], $apiAccount->getId());
         $this->assertEquals($account['status'], $apiAccount->getStatus());
