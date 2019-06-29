@@ -85,6 +85,7 @@ class AssetsTest extends ClientTestCase
         $this->assertEquals($rawAsset['marginable'], $asset->isMarginable());
         $this->assertEquals($rawAsset['tradable'], $asset->isTradable());
         $this->assertEquals($rawAsset['shortable'], $asset->isShortable());
+        $this->assertEquals(json_encode($rawAsset), $asset);
     }
 
     /**

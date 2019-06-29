@@ -25,7 +25,7 @@ class ClockAndCalendarTest extends ClientTestCase
         $response = $this->responseForParams($clock);
         $request = new Request('GET', $this->fullUrl('clock'), $this->requestHeaders());
 
-        $this->httpClient->expects(self::once())->method('send')
+        $this->httpClient->expects($this->once())->method('send')
             ->with($request, ['query' => []])->willReturn($response);
 
         $marketClock = $this->alpacaClient->getClock();
@@ -35,6 +35,8 @@ class ClockAndCalendarTest extends ClientTestCase
         $this->assertEquals($clock['is_open'], $marketClock->isOpen());
         $this->assertEquals($clock['next_open'], $marketClock->getNextOpen());
         $this->assertEquals($clock['next_close'], $marketClock->getNextClose());
+
+        $this->assertEquals(json_encode($clock), $marketClock);
     }
 
     public function testCalendarRetrieval(): void
@@ -43,7 +45,7 @@ class ClockAndCalendarTest extends ClientTestCase
         $response = $this->responseForParams($marketDates);
         $request = new Request('GET', $this->fullUrl('calendar'), $this->requestHeaders());
 
-        $this->httpClient->expects(self::once())->method('send')
+        $this->httpClient->expects($this->once())->method('send')
             ->with(
                 $request,
                 ['query' =>
@@ -54,12 +56,13 @@ class ClockAndCalendarTest extends ClientTestCase
 
         $calendar = $this->alpacaClient->getCalendar();
 
-        self::assertCount(10, $calendar);
+        $this->assertCount(10, $calendar);
 
         foreach ($calendar as $day) {
-            self::assertIsString($day->getDate());
-            self::assertIsString($day->getOpen());
-            self::assertIsString($day->getClose());
+            $this->assertIsString($day->getDate());
+            $this->assertIsString($day->getOpen());
+            $this->assertIsString($day->getClose());
+            $this->assertIsString('' . $day);
         }
     }
 }
