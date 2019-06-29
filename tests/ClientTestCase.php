@@ -19,6 +19,8 @@ use RagingProdigy\Alpaca\Client;
 use RagingProdigy\Alpaca\Config;
 use RagingProdigy\Alpaca\Entities\Account;
 use RagingProdigy\Alpaca\Entities\Asset;
+use RagingProdigy\Alpaca\Entities\Calendar;
+use RagingProdigy\Alpaca\Entities\Clock;
 
 /**
  * Class ClientTestCase.
@@ -98,6 +100,8 @@ abstract class ClientTestCase extends TestCase
 
     private function createEntityFactories(): void
     {
+        $dateFormat = 'Y-m-dTH:i:aZ';
+
         custom_factory(Asset::class, static function (Faker $faker) {
             return  [
                 'id' => $faker->uuid,
@@ -112,7 +116,24 @@ abstract class ClientTestCase extends TestCase
             ];
         });
 
-        custom_factory(Account::class, static function (Faker $faker) {
+        custom_factory(Clock::class, static function (Faker $faker) use ($dateFormat) {
+            return [
+                'timestamp' => $faker->dateTimeThisMonth->format($dateFormat),
+                'is_open' => $faker->randomElement([true, false]),
+                'next_open' => $faker->dateTimeThisMonth->format($dateFormat),
+                'next_close' => $faker->dateTimeThisMonth->format($dateFormat),
+            ];
+        });
+
+        custom_factory(Calendar::class, static function (Faker $faker) use ($dateFormat) {
+            return [
+                'date' => $faker->dateTimeThisMonth->format($dateFormat),
+                'open' => '09:30',
+                'close' => '16:00',
+            ];
+        });
+
+        custom_factory(Account::class, static function (Faker $faker) use ($dateFormat) {
             return  [
                 'id' => $faker->uuid,
                 'status' => 'ACTIVE',
@@ -125,7 +146,7 @@ abstract class ClientTestCase extends TestCase
                 'trading_blocked' => $faker->randomElement([true, false]),
                 'transfers_blocked' => $faker->randomElement([true, false]),
                 'account_blocked' => $faker->randomElement([true, false]),
-                'created_at' => $faker->dateTimeThisMonth->format('Y-m-dTH:i:aZ'),
+                'created_at' => $faker->dateTimeThisMonth->format($dateFormat),
                 'shorting_enabled' => $faker->randomElement([true, false]),
                 'multiplier' => (string) $faker->randomElement([1,2,3,4]),
                 'long_market_value' => (string) $faker->randomFloat(2),
