@@ -83,6 +83,46 @@ class Client
     }
 
     /**
+     * @return string
+     */
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiSecret(): string
+    {
+        return $this->apiSecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl(): string
+    {
+        return $this->baseUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPolygonUrl(): string
+    {
+        return $this->polygonUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDataBaseUrl(): string
+    {
+        return $this->dataBaseUrl;
+    }
+
+    /**
      * @return array
      */
     private function requestHeaders(): array

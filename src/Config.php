@@ -44,7 +44,12 @@ class Config
         $this->apiKey = $apiKey;
         $this->secretKey = $secretKey;
 
-        $this->baseUrl = $baseUrl ?? $paperTrading ? 'https://paper-api.alpaca.markets' : 'https://api.alpaca.markets';
+        if ($paperTrading) {
+            $this->baseUrl = $baseUrl ?? 'https://paper-api.alpaca.markets';
+        } else {
+            $this->baseUrl = $baseUrl ?? 'https://api.alpaca.markets';
+        }
+
         $this->dataBaseUrl = $dataBaseUrl ?? 'https://data.alpaca.markets';
         $this->polygonBaseUrl = $polygonBaseUrl ?? 'https://api.polygon.io';
     }

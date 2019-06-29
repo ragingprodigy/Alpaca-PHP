@@ -21,3 +21,8 @@ $client = new \RagingProdigy\Alpaca\Client(
         true
     )
 );
+
+$paperTrading = false;
+$baseUrl = 'c';
+
+echo $baseUrl ?? $paperTrading ? 'https://paper-api.alpaca.markets' : 'https://api.alpaca.markets';
