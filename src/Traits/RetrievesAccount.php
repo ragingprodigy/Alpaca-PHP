@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Traits;
 
-use Exception;
 use RagingProdigy\Alpaca\Entities\Account;
 
 /**
@@ -19,7 +18,6 @@ trait RetrievesAccount
 {
     /**
      * @return Account
-     * @throws Exception
      */
     public function getAccount(): Account
     {

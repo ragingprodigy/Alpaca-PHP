@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace RagingProdigy\Alpaca;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
@@ -60,8 +61,9 @@ class Client
     /**
      * Client constructor.
      * @param Config $config
+     * @param ClientInterface|null $httpClient
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, ClientInterface $httpClient = null)
     {
         $this->baseUrl = $config->getBaseUrl();
         $this->apiKey = $config->getApiKey();
@@ -73,7 +75,7 @@ class Client
         $handler = new StreamHandler();
         $stack = HandlerStack::create($handler);
 
-        $this->httpClient = new HttpClient([
+        $this->httpClient = $httpClient ?? new HttpClient([
             'handler' => $stack,
             RequestOptions::ALLOW_REDIRECTS => true,
             RequestOptions::CONNECT_TIMEOUT => 15,
@@ -148,7 +150,7 @@ class Client
             $method,
             $this->buildFullUrl($endPoint),
             $this->requestHeaders(),
-            json_encode($body)
+            $body ? json_encode($body) : null
         );
 
         $response = $this->httpClient->send($request, [ RequestOptions::QUERY => $params]);
