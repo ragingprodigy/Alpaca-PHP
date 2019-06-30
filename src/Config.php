@@ -72,14 +72,6 @@ class Config
     /**
      * @return string
      */
-    public function getPolygonBaseUrl(): string
-    {
-        return $this->polygonBaseUrl;
-    }
-
-    /**
-     * @return string
-     */
     public function getApiKey(): string
     {
         return $this->apiKey;
