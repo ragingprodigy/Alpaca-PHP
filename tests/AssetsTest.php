@@ -12,8 +12,8 @@ namespace Tests;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use RagingProdigy\Alpaca\Entities\Asset;
+use RagingProdigy\Alpaca\Exceptions\AlpacaAPIException;
 use RagingProdigy\Alpaca\Exceptions\InvalidApiUsageException;
-use RuntimeException;
 use Tests\Utils\Factory;
 
 /**
@@ -54,7 +54,7 @@ class AssetsTest extends ClientTestCase
         $this->httpClient->expects($this->once())->method('send')
             ->with($request,  [ RequestOptions::QUERY => []])->willReturn($response);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(AlpacaAPIException::class);
         $this->expectExceptionMessage('Request failed with code: 404');
         $this->expectExceptionCode(404);
 

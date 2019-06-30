@@ -16,12 +16,12 @@ use GuzzleHttp\Handler\StreamHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
+use RagingProdigy\Alpaca\Exceptions\AlpacaAPIException;
 use RagingProdigy\Alpaca\Traits\ManagesOrders;
 use RagingProdigy\Alpaca\Traits\RetrievesAccount;
 use RagingProdigy\Alpaca\Traits\RetrievesAssets;
 use RagingProdigy\Alpaca\Traits\RetrievesClockAndCalendar;
 use RagingProdigy\Alpaca\Traits\RetrievesPositions;
-use RuntimeException;
 
 /**
  * Class Client.
@@ -142,7 +142,6 @@ class Client
      * @param array $params
      * @param array $body
      * @return array
-     * @throws GuzzleException
      */
     private function sendRequest(string $method, string $endPoint, array $params = [], array $body = null): array
     {
@@ -153,19 +152,23 @@ class Client
             $body ? json_encode($body) : null
         );
 
-        $response = $this->httpClient->send($request, [ RequestOptions::QUERY => $params]);
+        try {
+            $response = $this->httpClient->send($request, [RequestOptions::QUERY => $params]);
 
-        if ($response->getStatusCode() >= 300) {
-            throw new RuntimeException(
-                sprintf('Request failed with code: %d', $response->getStatusCode()),
-                $response->getStatusCode());
+            if ($response->getStatusCode() >= 300) {
+                throw new AlpacaAPIException(
+                    sprintf('Request failed with code: %d', $response->getStatusCode()),
+                    $response->getStatusCode());
+            }
+
+            if ('DELETE' === $method) {
+                return [];
+            }
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $exception) {
+            throw new AlpacaAPIException($exception->getMessage(), $exception->getCode());
         }
-
-        if ('DELETE' === $method) {
-            return [];
-        }
-
-        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**

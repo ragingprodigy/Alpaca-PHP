@@ -196,6 +196,131 @@ class OrdersTest extends ClientTestCase
     }
 
     /**
+     * @return array
+     */
+    public function provideDataForFailedOrderCreationTest(): array
+    {
+        return [
+            'Test Client Order ID Longer than 48 characters' => [
+                'payload' => [
+                    'clientOrderId' => 'hkdshfksdhfkjshdfjkhsdkfjhsdfkskjsdbkjfsdkfdsjhfsdf',
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'market',
+                    'timeInForce' => 'day'
+                ],
+                'message' => 'Client Order ID must be less than 49 characters'
+            ],
+            'Test Order Creation with Invalid Action' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'some.action',
+                    'type' => 'market',
+                    'timeInForce' => 'day'
+                ],
+                'message' => 'some.action is not a valid Order Action',
+            ],
+            'Test Order Creation with Invalid Type' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'random',
+                    'timeInForce' => 'day'
+                ],
+                'message' => 'random is not a valid Order Type',
+            ],
+            'Test Order Creation with Time In Force' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'market',
+                    'timeInForce' => 'sss'
+                ],
+                'message' => 'sss is not a valid Time In Force value',
+            ],
+            'Test setting extended to True for the wrong order type' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'market',
+                    'timeInForce' => 'fok',
+                    'extendedHours' => true,
+                ],
+                'message' => 'extendedHours:true Only works with type limit and time_in_force day',
+            ],
+            'Require Stop Price for Order Type: STOP' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'stop',
+                    'timeInForce' => 'day',
+                ],
+                'message' => 'Please specify a Stop Price to use this Order Type',
+            ],
+            'Require Stop Price for Order Type: STOP_LIMIT' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'stop_limit',
+                    'timeInForce' => 'day',
+                ],
+                'message' => 'Please specify a Stop Price to use this Order Type',
+            ],
+            'Require Limit Price for Order Type: LIMIT' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'limit',
+                    'timeInForce' => 'day',
+                ],
+                'message' => 'Please specify a Limit Price to use this Order Type',
+            ],
+            'Require Limit Price for Order Type: STOP_LIMIT' => [
+                'payload' => [
+                    'symbol' => 'ds',
+                    'quantity' => 2,
+                    'action' => 'sell',
+                    'type' => 'stop_limit',
+                    'timeInForce' => 'day',
+                    'stopPrice' => 100.0,
+                ],
+                'message' => 'Please specify a Limit Price to use this Order Type',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideDataForFailedOrderCreationTest
+     * @param array $payload
+     * @param string $message
+     */
+    public function testFailedOrderCreation(array $payload, string $message): void
+    {
+        $this->expectException(InvalidApiUsageException::class);
+        $this->expectExceptionMessage($message);
+
+        $this->alpacaClient->requestNewOrder(
+            $payload['symbol'],
+            $payload['quantity'],
+            $payload['action'],
+            $payload['type'],
+            $payload['timeInForce'],
+            $payload['limitPrice'] ?? null,
+            $payload['stopPrice'] ?? null,
+            $payload['extendedHours'] ?? false,
+            $payload['clientOrderId'] ?? null
+        );
+    }
+
+    /**
      * @param Order $order
      */
     private function assertOrderIsValid(Order $order): void

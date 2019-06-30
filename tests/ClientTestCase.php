@@ -175,7 +175,7 @@ abstract class ClientTestCase extends TestCase
                 'type' => $faker->randomElement(['market', 'limit', 'stop', 'stop_limit']),
                 'side' => $faker->randomElement(['buy', 'sell']),
                 'time_in_force' => $faker->randomElement(['day', 'gtc', 'opg', 'ioc', 'fok']),
-                'limit_price' => (string) $faker->randomFloat(2),
+                'limit_price' => (string) $faker->randomFloat(2, 100),
                 'stop_price' => (string) $faker->randomFloat(2),
                 'filled_average_price' => (string) $faker->randomFloat(2),
                 'status' => $faker->randomElement(['accepted', 'pending_new', 'accepted_for_bidding', 'rejected']),

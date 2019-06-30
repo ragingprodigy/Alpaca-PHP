@@ -108,14 +108,6 @@ class Order implements JsonSerializable
     }
 
     /**
-     * @return array
-     */
-    public function getRaw(): array
-    {
-        return $this->raw;
-    }
-
-    /**
      * @return string
      */
     public function getId(): string
