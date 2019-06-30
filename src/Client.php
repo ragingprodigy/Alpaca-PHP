@@ -20,6 +20,7 @@ use RagingProdigy\Alpaca\Exceptions\AlpacaAPIException;
 use RagingProdigy\Alpaca\Traits\ManagesOrders;
 use RagingProdigy\Alpaca\Traits\RetrievesAccount;
 use RagingProdigy\Alpaca\Traits\RetrievesAssets;
+use RagingProdigy\Alpaca\Traits\RetrievesBars;
 use RagingProdigy\Alpaca\Traits\RetrievesClockAndCalendar;
 use RagingProdigy\Alpaca\Traits\RetrievesPositions;
 
@@ -28,7 +29,7 @@ use RagingProdigy\Alpaca\Traits\RetrievesPositions;
  */
 class Client
 {
-    use RetrievesAccount, ManagesOrders, RetrievesClockAndCalendar, RetrievesAssets, RetrievesPositions;
+    use RetrievesAccount, ManagesOrders, RetrievesClockAndCalendar, RetrievesAssets, RetrievesPositions, RetrievesBars;
 
     /**
      * @var string
@@ -51,11 +52,6 @@ class Client
     /**
      * @var string
      */
-    private $polygonUrl;
-
-    /**
-     * @var string
-     */
     private $dataBaseUrl;
 
     /**
@@ -69,7 +65,6 @@ class Client
         $this->apiKey = $config->getApiKey();
         $this->apiSecret = $config->getSecretKey();
 
-        $this->polygonUrl = $config->getPolygonBaseUrl();
         $this->dataBaseUrl = $config->getDataBaseUrl();
 
         $handler = new StreamHandler();
@@ -111,14 +106,6 @@ class Client
     /**
      * @return string
      */
-    public function getPolygonUrl(): string
-    {
-        return $this->polygonUrl;
-    }
-
-    /**
-     * @return string
-     */
     public function getDataBaseUrl(): string
     {
         return $this->dataBaseUrl;
@@ -147,7 +134,7 @@ class Client
     {
         $request = new Request(
             $method,
-            $this->buildFullUrl($endPoint),
+            $endPoint,
             $this->requestHeaders(),
             $body ? json_encode($body) : null
         );
@@ -177,37 +164,53 @@ class Client
      */
     private function buildFullUrl($endPoint): string
     {
-        return implode('/', [ $this->baseUrl, 'v2', $endPoint ]);
+        return implode('/', [ $this->getBaseUrl(), $endPoint ]);
+    }
+
+    /**
+     * @param string $endPoint
+     * @return string
+     */
+    private function buildFullDataUrl(string $endPoint): string
+    {
+        return implode('/', [ $this->getDataBaseUrl(), $endPoint ]);
     }
 
     /**
      * @param string $endPoint
      * @param array $params
      * @return array
-     * @throws GuzzleException
      */
     protected function get(string $endPoint, array $params = []): array
     {
-        return $this->sendRequest('GET', $endPoint, $params);
+        return $this->sendRequest('GET', $this->buildFullUrl($endPoint), $params);
+    }
+
+    /**
+     * @param string $endPoint
+     * @param array $params
+     * @return array
+     */
+    protected function dataGet(string $endPoint, array $params = []): array
+    {
+        return $this->sendRequest('GET', $this->buildFullDataUrl($endPoint), $params);
     }
 
     /**
      * @param string $endPoint
      * @param array $body
      * @return array
-     * @throws GuzzleException
      */
     protected function post(string $endPoint, array $body = []): array
     {
-        return $this->sendRequest('POST', $endPoint, [], $body);
+        return $this->sendRequest('POST', $this->buildFullUrl($endPoint), [], $body);
     }
 
     /**
      * @param string $endPoint
-     * @throws GuzzleException
      */
     protected function delete(string $endPoint): void
     {
-        $this->sendRequest('DELETE', $endPoint);
+        $this->sendRequest('DELETE', $this->buildFullUrl($endPoint));
     }
 }

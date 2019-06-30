@@ -19,6 +19,7 @@ use RagingProdigy\Alpaca\Client;
 use RagingProdigy\Alpaca\Config;
 use RagingProdigy\Alpaca\Entities\Account;
 use RagingProdigy\Alpaca\Entities\Asset;
+use RagingProdigy\Alpaca\Entities\Bar;
 use RagingProdigy\Alpaca\Entities\Calendar;
 use RagingProdigy\Alpaca\Entities\Clock;
 use RagingProdigy\Alpaca\Entities\Order;
@@ -40,14 +41,19 @@ abstract class ClientTestCase extends TestCase
      * @param string $apiKey
      * @param string $apiSecret
      * @param string $baseUrl
+     * @param string $dataBaseUrl
      */
-    protected function setUp($apiKey = 'key', $apiSecret = 'secret', $baseUrl = 'http://mock.url'): void
-    {
+    protected function setUp(
+        $apiKey = 'key',
+        $apiSecret = 'secret',
+        $baseUrl = 'http://mock.url',
+        $dataBaseUrl = 'http://mock.data.url'
+    ): void {
         parent::setUp();
 
         $this->httpClient = $this->getMockBuilder(HttpClient::class)->getMock();
         $this->alpacaClient = new Client(
-            new Config($apiKey, $apiSecret, true, $baseUrl),
+            new Config($apiKey, $apiSecret, true, $baseUrl, $dataBaseUrl),
             $this->httpClient
         );
 
@@ -60,7 +66,16 @@ abstract class ClientTestCase extends TestCase
      */
     protected function fullUrl(string $path): string
     {
-        return $this->alpacaClient->getBaseUrl() . '/v2/' . $path;
+        return $this->alpacaClient->getBaseUrl() . '/' . $path;
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     */
+    protected function fullDataUrl(string $path): string
+    {
+        return $this->alpacaClient->getDataBaseUrl() . '/' . $path;
     }
 
     /**
@@ -83,7 +98,6 @@ abstract class ClientTestCase extends TestCase
     protected function responseForParams($responseBody = null, int $statusCode = 200)
     {
         $responseMock = $this->getMockBuilder(ResponseInterface::class)->getMock();
-
         $responseMock->method('getStatusCode')->willReturn($statusCode);
 
         if ($responseBody) {
@@ -103,6 +117,27 @@ abstract class ClientTestCase extends TestCase
     private function createEntityFactories(): void
     {
         $dateFormat = 'Y-m-dTH:i:aZ';
+
+        custom_factory(Bar::class, static function (Faker $faker) {
+            $bars = [];
+            $numberOfBars = $faker->randomNumber(1);
+
+            while ($numberOfBars > 0) {
+                $bars[] = [
+                    't' => $faker->dateTimeThisMonth->getTimestamp(),
+                    'o' => $faker->randomFloat(3),
+                    'h' => $faker->randomFloat(3),
+                    'l' => $faker->randomFloat(3),
+                    'c' => $faker->randomFloat(3),
+                    'v' => $faker->randomNumber(4),
+                ];
+                --$numberOfBars;
+            }
+
+            return  [
+                strtoupper($faker->word) => $bars
+            ];
+        });
 
         custom_factory(Asset::class, static function (Faker $faker) {
             return  [

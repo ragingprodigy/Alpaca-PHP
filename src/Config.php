@@ -14,14 +14,16 @@ namespace RagingProdigy\Alpaca;
  */
 class Config
 {
+    /** @var string string */
     private $baseUrl;
 
+    /** @var string string */
     private $dataBaseUrl;
 
-    private $polygonBaseUrl;
-
+    /** @var string string */
     private $apiKey;
 
+    /** @var string string */
     private $secretKey;
 
     /**
@@ -31,27 +33,24 @@ class Config
      * @param bool $paperTrading
      * @param string $baseUrl
      * @param string $dataBaseUrl
-     * @param string $polygonBaseUrl
      */
     public function __construct(
         string $apiKey,
         string $secretKey,
         $paperTrading = true,
         string $baseUrl = null,
-        string $dataBaseUrl = null,
-        string $polygonBaseUrl = null
+        string $dataBaseUrl = null
     ) {
         $this->apiKey = $apiKey;
         $this->secretKey = $secretKey;
 
         if ($paperTrading) {
-            $this->baseUrl = $baseUrl ?? 'https://paper-api.alpaca.markets';
+            $this->baseUrl = $baseUrl ?? 'https://paper-api.alpaca.markets/v2';
         } else {
-            $this->baseUrl = $baseUrl ?? 'https://api.alpaca.markets';
+            $this->baseUrl = $baseUrl ?? 'https://api.alpaca.markets/v2';
         }
 
-        $this->dataBaseUrl = $dataBaseUrl ?? 'https://data.alpaca.markets';
-        $this->polygonBaseUrl = $polygonBaseUrl ?? 'https://api.polygon.io';
+        $this->dataBaseUrl = $dataBaseUrl ?? 'https://data.alpaca.markets/v1';
     }
 
     /**

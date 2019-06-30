@@ -25,15 +25,13 @@ class ConfigTest extends TestCase
             'api.secret',
             true,
             'base.url',
-            'data.base.url',
-            'polygon.base.url'
+            'data.base.url'
         ));
 
         $this->assertEquals('api.key', $client->getApiKey());
         $this->assertEquals('api.secret', $client->getApiSecret());
         $this->assertEquals('base.url', $client->getBaseUrl());
         $this->assertEquals('data.base.url', $client->getDataBaseUrl());
-        $this->assertEquals('polygon.base.url', $client->getPolygonUrl());
     }
 
     public function testPaperTradingUrl(): void
