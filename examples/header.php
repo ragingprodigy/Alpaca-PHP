@@ -16,8 +16,8 @@ $dotEnv->load();
 
 $client = new \RagingProdigy\Alpaca\Client(
     new \RagingProdigy\Alpaca\Config(
-        getenv('ALPACA_API_KEY'),
-        getenv('ALPACA_SECRET_KEY'),
+        'ALPACA_API_KEY',
+        'ALPACA_SECRET_KEY',
         true
     )
 );

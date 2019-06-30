@@ -8,7 +8,6 @@ declare(strict_types=1);
  */
 include 'header.php';
 
-
 try {
     $order = $client->requestNewOrder(
         'GE',
