@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Entities;
 
-use DateTime;
 use JsonSerializable;
 
 /**
@@ -89,6 +88,7 @@ class Order implements JsonSerializable
 
         $this->assetId = $params['asset_id'];
         $this->assetClass = $params['asset_class'];
+        $this->symbol = $params['symbol'];
 
         $this->quantity = (int) $params['qty'];
         $this->filledQuantity = (int) $params['filled_qty'];
@@ -132,9 +132,9 @@ class Order implements JsonSerializable
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }

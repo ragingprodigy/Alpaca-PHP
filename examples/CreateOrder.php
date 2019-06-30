@@ -10,7 +10,7 @@ include 'header.php';
 
 
 try {
-    $order = $client->requestOrder(
+    $order = $client->requestNewOrder(
         'GE',
         50,
         \RagingProdigy\Alpaca\Constants\OrderAction::BUY,

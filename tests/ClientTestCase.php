@@ -21,6 +21,7 @@ use RagingProdigy\Alpaca\Entities\Account;
 use RagingProdigy\Alpaca\Entities\Asset;
 use RagingProdigy\Alpaca\Entities\Calendar;
 use RagingProdigy\Alpaca\Entities\Clock;
+use RagingProdigy\Alpaca\Entities\Order;
 use RagingProdigy\Alpaca\Entities\Position;
 
 /**
@@ -155,6 +156,33 @@ abstract class ClientTestCase extends TestCase
             ];
         });
 
+        custom_factory(Order::class, static function (Faker $faker) use ($dateFormat) {
+            return [
+                'id' => $faker->uuid,
+                'client_order_id' => $faker->uuid,
+                'created_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'updated_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'submitted_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'filled_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'expired_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'canceled_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'failed_at' => $faker->dateTimeThisMonth->format($dateFormat),
+                'asset_id' => $faker->uuid,
+                'symbol' => $faker->word,
+                'asset_class' => $faker->word,
+                'qty' => (string) $faker->randomNumber(2),
+                'filled_qty' => '0',
+                'type' => $faker->randomElement(['market', 'limit', 'stop', 'stop_limit']),
+                'side' => $faker->randomElement(['buy', 'sell']),
+                'time_in_force' => $faker->randomElement(['day', 'gtc', 'opg', 'ioc', 'fok']),
+                'limit_price' => (string) $faker->randomFloat(2),
+                'stop_price' => (string) $faker->randomFloat(2),
+                'filled_average_price' => (string) $faker->randomFloat(2),
+                'status' => $faker->randomElement(['accepted', 'pending_new', 'accepted_for_bidding', 'rejected']),
+                'extended_hours' => $faker->randomElement([true, false]),
+            ];
+        });
+        
         custom_factory(Account::class, static function (Faker $faker) use ($dateFormat) {
             return  [
                 'id' => $faker->uuid,

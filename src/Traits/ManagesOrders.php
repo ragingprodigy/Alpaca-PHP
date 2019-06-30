@@ -103,7 +103,7 @@ trait ManagesOrders
      * @return Order
      * @see https://docs.alpaca.markets/api-documentation/api-v2/orders/#request-a-new-order
      */
-    public function requestOrder(
+    public function requestNewOrder(
         string $symbol,
         int $quantity,
         string $action,
@@ -118,7 +118,7 @@ trait ManagesOrders
 
         $payload = [
             'symbol' => $symbol,
-            'qty' => $quantity,
+            'qty' => (string) $quantity,
             'side' => $action,
             'type' => $type,
             'time_in_force' => $timeInForce,
