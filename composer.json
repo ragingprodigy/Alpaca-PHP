@@ -13,8 +13,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "^1.8",
-        "phpunit/phpunit": "^8.2",
-        "vlucas/phpdotenv": "^3.4"
+        "phpunit/phpunit": "^8.2"
     },
     "license": "Apache-2.0",
     "authors": [
