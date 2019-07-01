@@ -1,5 +1,5 @@
 # Alpaca-PHP
-Alpaca Trade API for PHP [![Build Status](https://travis-ci.org/ragingprodigy/Alpaca-PHP.svg?branch=master)](https://travis-ci.org/ragingprodigy/Alpaca-PHP)
+Alpaca Trade API for PHP [![Build Status](https://travis-ci.org/ragingprodigy/Alpaca-PHP.svg?branch=master)](https://travis-ci.org/ragingprodigy/Alpaca-PHP) [![Build Status](https://img.shields.io/badge/%20-composer-yellowgreen.svg)](https://packagist.org/packages/ragingprodigy/alpaca-php)
 
 ## Overview
 This is a PHP Client for <a href="https://alpaca.markets/">Alpaca</a> (<a href="https://docs.alpaca.markets/api-documentation/web-api/">General Alpaca API Documentation</a>).  Alpaca API lets you build and trade with real-time market data for free.
@@ -8,6 +8,7 @@ This is a PHP Client for <a href="https://alpaca.markets/">Alpaca</a> (<a href="
 1. [Installation](#installation)
 2. [Basic Usage](#basic-usage)
 3. [Full Scale Example](#full-scale-example)
+3. [Methods](#methods)
 
 #### Installation
 
@@ -207,4 +208,124 @@ The output for the code above would be similar to:
             Close: 197.92
             Volume: 18773228
 
-The 
+#### Methods
+All API methods are available on the Alpaca Client (`RagingProdigy\Alpaca\Client`).
+
+##### Account API
+Calls `GET /account` and returns the current account
+
+```php
+$client->getAccount(); //Account
+```
+
+##### Orders API
+###### Request New Order
+Calls `POST /orders` and creates a new order.
+
+```php
+$client->requestNewOrder(
+    string $symbol,
+    int $quantity,
+    string $action, // OrderAction::BUY, OrderAction::SELL
+    string $type, // OrderType::MARKET, OrderType::STOP, OrderType::LIMIT, OrderType::STOP_LIMIT, 
+    string $timeInForce, // TimeInForce::DAY, TimeInForce::GTC, TimeInForce::OPG, TimeInForce::IOC, TimeInForce::FOK
+    float $limitPrice = null,
+    float $stopPrice = null,
+    bool $extendedHours = false,
+    $clientOrderId = null
+); // Order
+```
+
+###### Get Orders
+Calls `GET /orders` and returns an array of Order objects.
+
+```php
+$client->getOrders(
+    string $status = OrderStatus::OPEN, // OrderStatus::CLOSED, OrderStatus::OPEN, OrderStatus::ALL
+    int $limit = 50,
+    DateTime $after = null,
+    DateTime $until = null,
+    string $direction = Sorting::DESCENDING // Sorting::ASCENDING, Sorting::DESCENDING
+); // Order[]
+```
+
+###### Get Order By ID
+Calls `GET /orders/{id}` and returns an Order.
+
+```php
+$client->getOrder(string $orderId); // Order
+```
+
+###### Get Order By Client Order Id
+Calls `GET /orders:by_client_order_id` and returns an order by `client_order_id`. You can set `client_order_id` while creating  your orders to easily keep track of your orders.
+
+```php
+$client->getOrderByClientOrderId(string $clientOrderId); // Order
+```
+
+###### Cancel an Order
+Calls `DELETE /orders/{id}` and deletes an Order.
+
+```php
+$client->cacnelOrder(string $orderId); // void
+```
+
+Raises an `AlpacaApiException` when it fails.
+
+##### Positions API
+###### Get Position
+Calls `GET /positions/{symbol}` and returns a Position.
+
+```php
+$client->getOpenPosition(string $symbol); // Position
+```
+
+###### Get All Position
+Calls `GET /positions` and returns an array of Position objects.
+
+```php
+$client->getOpenPositions(); // Position[]
+```
+
+##### Assets API
+###### Get Assets
+Calls `GET /assets/` and returns an array of Assets matching your criteria.
+
+```php
+$client->getAssets(
+    string $status = '' // '', AssetStatus::ACTIVE, AssetStatus::INACTIVE
+); // Asset[]
+```
+    
+###### Get Asset Information
+Calls `GET /assets/{symbol}` and returns an Asset entity.
+
+```php
+$client->getAsset(string $assetIdOrSymbol); // Asset
+```
+  
+##### Calendar API
+Calls `GET/calendar` and returns the market calendar for the selected dates
+
+```php
+$client->getCalendar(DateTime $start = null, DateTime $end = null); // Calendar[]
+```
+
+##### Data API
+###### Get Bars
+```php
+$client->getBars(
+    array $symbols, // up to 200 symbols
+    string $timeFrame, // BarTimeFrame::MINUTE, BarTimeFrame::FIVE_MINUTES, BarTimeFrame::FIFTEEN_MINUTES, BarTimeFrame::DAY
+    int $limit = 100,
+    DateTime $start = null,
+    DateTime $end = null
+); // Bar[]
+```
+
+#### Tests
+In order to run the tests, install the dev-dependencies (`composer install --dev`) and then run:
+
+```bash
+    vendor/bin/phpunit -c phpunit.xml.dist
+```

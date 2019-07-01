@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Traits;
 
+use DateTime;
 use RagingProdigy\Alpaca\Constants\OrderAction;
 use RagingProdigy\Alpaca\Constants\OrderStatus;
 use RagingProdigy\Alpaca\Constants\OrderType;
@@ -52,16 +53,16 @@ trait ManagesOrders
     /**
      * @param string $status
      * @param int $limit
-     * @param string|null $after
-     * @param string|null $until
+     * @param DateTime|null $after
+     * @param DateTime|null $until
      * @param string $direction
      * @return Order[]
      */
     public function getOrders(
         string $status = OrderStatus::OPEN,
         int $limit = 50,
-        string $after = null,
-        string $until = null,
+        DateTime $after = null,
+        DateTime $until = null,
         string $direction = Sorting::DESCENDING
     ): array {
         if (!OrderStatus::isValid($status)) {
@@ -83,8 +84,8 @@ trait ManagesOrders
             $this->get('orders', [
                 'status' => $status,
                 'limit' => $limit,
-                'after' => $after,
-                'until' => $until,
+                'after' => $after ? $after->format(DATE_ATOM) : null,
+                'until' => $until ? $until->format(DATE_ATOM) : null,
                 'direction' => $direction,
             ])
         );

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace RagingProdigy\Alpaca\Traits;
 
+use DateTime;
 use RagingProdigy\Alpaca\Entities\Calendar;
 use RagingProdigy\Alpaca\Entities\Clock;
 
@@ -26,14 +27,20 @@ trait RetrievesClockAndCalendar
     }
 
     /**
-     * @param string|null $start
-     * @param string|null $end
+     * @param DateTime $start
+     * @param DateTime $end
      * @return array|Calendar[]
      */
-    public function getCalendar(string $start = null, string $end = null): array
+    public function getCalendar(DateTime $start = null, DateTime $end = null): array
     {
         return array_map(static function (array $calendar) {
             return new Calendar($calendar);
-        }, $this->get('calendar', ['start' => $start, 'end' => $end]));
+        }, $this->get(
+            'calendar',
+            [
+                'start' => $start ? $start->format(DATE_ATOM) : null,
+                'end' => $end ? $end->format(DATE_ATOM) : null
+            ]
+        ));
     }
 }
