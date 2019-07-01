@@ -8,8 +8,9 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
-        "ext-json": "*"
+        "ratchet/pawl": "^0.3.4"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.8",

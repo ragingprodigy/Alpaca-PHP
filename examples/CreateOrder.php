@@ -6,32 +6,32 @@ declare(strict_types=1);
  * Created on: 2019-06-28, 01:41.
  * @license Apache-2.0
  */
+
+use RagingProdigy\Alpaca\Constants\OrderAction;
+use RagingProdigy\Alpaca\Constants\OrderType;
+use RagingProdigy\Alpaca\Constants\TimeInForce;
+
 include 'header.php';
 
-try {
-    $order = $client->requestNewOrder(
-        'GE',
-        50,
-        \RagingProdigy\Alpaca\Constants\OrderAction::BUY,
-        \RagingProdigy\Alpaca\Constants\OrderType::MARKET,
-        \RagingProdigy\Alpaca\Constants\TimeInForce::DAY
-    );
+$order = $alpacaClient->requestNewOrder(
+    'GE',
+    50,
+    OrderAction::BUY,
+    OrderType::MARKET,
+    TimeInForce::DAY
+);
+echo $order;
 
-    echo $order;
+$sellOrder = $alpacaClient->requestNewOrder(
+    'GE',
+    4,
+    OrderAction::SELL,
+    OrderType::MARKET,
+    TimeInForce::DAY
+);
+echo $sellOrder;
 
-//    $sellOrder = $client->requestOrder(
-//        'GE',
-//        4,
-//        \RagingProdigy\Alpaca\Constants\OrderAction::SELL,
-//        \RagingProdigy\Alpaca\Constants\OrderType::MARKET,
-//        \RagingProdigy\Alpaca\Constants\TimeInForce::DAY
-//    );
-//
-//    echo $sellOrder;
-} catch (\RagingProdigy\Alpaca\Exceptions\InvalidApiUsageException $e) {
-    print_r($e->getMessage());
-}
-
-foreach ($client->getOpenPositions() as $calendar) {
-    echo $calendar . "\n";
+// Get Open Positions
+foreach ($alpacaClient->getOpenPositions() as $position) {
+    echo $position . "\n";
 }

@@ -9,9 +9,6 @@ declare(strict_types=1);
 
 include 'header.php';
 
-try {
-    $account = $client->getAccount();
-    echo "Buying Power: {$account->getBuyingPower()}";
-} catch (Exception $e) {
-}
+$account = $alpacaClient->getAccount();
+echo "Buying Power: {$account->getBuyingPower()}";
 

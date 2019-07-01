@@ -11,11 +11,7 @@ use RagingProdigy\Alpaca\Constants\BarTimeFrame;
 
 include 'header.php';
 
-$bars = $client->getBars(
-    ['GOOG', 'AAPL', 'AMZN'],
-    BarTimeFrame::FIFTEEN_MINUTES,null, null,
-    10
-);
+$bars = $alpacaClient->getBars(['GOOG', 'AAPL', 'AMZN'], BarTimeFrame::FIFTEEN_MINUTES, 10);
 
 foreach ($bars as $bar) {
     echo $bar . "\n";

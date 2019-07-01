@@ -22,7 +22,7 @@ class Bar implements JsonSerializable
 
     /** @var string string */
     private $symbol;
-    /** @var float */
+    /** @var int */
     private $t;
     /** @var float */
     private $o;
@@ -62,9 +62,9 @@ class Bar implements JsonSerializable
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getT(): float
+    public function getT(): int
     {
         return $this->t;
     }

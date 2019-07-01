@@ -23,13 +23,15 @@ use RagingProdigy\Alpaca\Traits\RetrievesAssets;
 use RagingProdigy\Alpaca\Traits\RetrievesBars;
 use RagingProdigy\Alpaca\Traits\RetrievesClockAndCalendar;
 use RagingProdigy\Alpaca\Traits\RetrievesPositions;
+use RagingProdigy\Alpaca\Traits\StreamsUpdates;
 
 /**
  * Class Client.
  */
 class Client
 {
-    use RetrievesAccount, ManagesOrders, RetrievesClockAndCalendar, RetrievesAssets, RetrievesPositions, RetrievesBars;
+    use RetrievesAccount, ManagesOrders, RetrievesClockAndCalendar, RetrievesAssets, RetrievesPositions, RetrievesBars,
+        StreamsUpdates;
 
     /**
      * @var string

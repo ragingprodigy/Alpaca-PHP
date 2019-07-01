@@ -7,18 +7,15 @@ declare(strict_types=1);
  * @license Apache-2.0
  */
 
+use RagingProdigy\Alpaca\Constants\OrderStatus;
+
 include 'header.php';
 
-//$orders = $client->getOrders(\RagingProdigy\Alpaca\Constants\OrderStatus::ALL);
-//
-//foreach ($orders as $order) {
-//    echo $order . "\n";
-//}
-//
-//try {
-//    $singleOrder = $client->getOrder('88ca1d07-66ff-42f8-b363-7158f1d32022');
-//    echo $singleOrder;
-//} catch (Exception $e) {
-//}
+$orders = $alpacaClient->getOrders(OrderStatus::ALL);
 
-print_r($client->cancelOrder('88ca1d07-66ff-42f8-b363-7158f1d32022'));
+foreach ($orders as $order) {
+    echo $order . "\n";
+}
+
+$singleOrder = $alpacaClient->getOrder('88ca1d07-66ff-42f8-b363-7158f1d32022');
+echo $singleOrder . "\n";
