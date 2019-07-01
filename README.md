@@ -58,7 +58,7 @@ use RagingProdigy\Alpaca\Entities\OrderUpdateEvent;
 use RagingProdigy\Alpaca\Entities\UpdateEvent;
 use Ratchet\Client\WebSocket;
 
-$alpacaClient = new Client(new Config('PKWVTQ6CRN9286WQTAKY', 'j4Z1SmY0OzMgqnMxW2VQTWn4LA/REsqIzKfD5TJv'));
+$alpacaClient = new Client(new Config('api.key', 'secret.key'));
 
 // Listen for Updates
 $alpacaClient->connectToStreams([DataStream::ACCOUNT_UPDATES, DataStream::TRADE_UPDATES], static function (WebSocket $webSocket, UpdateEvent $event = null) {
