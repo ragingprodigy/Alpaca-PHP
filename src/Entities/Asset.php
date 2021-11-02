@@ -18,26 +18,26 @@ class Asset implements JsonSerializable
 {
 
     /** @var array */
-    private $raw;
+    private array $raw;
 
     /** @var string */
-    private $id;
+    private string $id;
     /** @var string */
-    private $assetClass;
+    private string $assetClass;
     /** @var string */
-    private $exchange;
+    private string $exchange;
     /** @var string */
-    private $symbol;
+    private string $symbol;
     /** @var string */
-    private $status;
+    private string $status;
     /** @var bool */
-    private $tradable;
+    private bool $tradable;
     /** @var bool */
-    private $marginable;
+    private bool $marginable;
     /** @var bool */
-    private $shortable;
+    private bool $shortable;
     /** @var bool */
-    private $easyToBorrow;
+    private bool $easyToBorrow;
 
     /**
      * Asset constructor.
@@ -146,7 +146,7 @@ class Asset implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }

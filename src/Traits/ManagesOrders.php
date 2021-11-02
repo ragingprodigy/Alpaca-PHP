@@ -84,8 +84,8 @@ trait ManagesOrders
             $this->get('orders', [
                 'status' => $status,
                 'limit' => $limit,
-                'after' => $after ? $after->format(DATE_ATOM) : null,
-                'until' => $until ? $until->format(DATE_ATOM) : null,
+                'after' => $after?->format(DATE_ATOM),
+                'until' => $until?->format(DATE_ATOM),
                 'direction' => $direction,
             ])
         );

@@ -18,16 +18,16 @@ class Clock implements JsonSerializable
 {
 
     /** @var array */
-    private $raw;
+    private array $raw;
 
     /** @var string */
-    private $timestamp;
+    private string $timestamp;
     /** @var bool */
-    private $isOpen;
+    private bool $isOpen;
     /** @var string */
-    private $nextOpen;
+    private string $nextOpen;
     /** @var string */
-    private $nextClose;
+    private string $nextClose;
 
     /**
      * Clock constructor.
@@ -90,7 +90,7 @@ class Clock implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }
