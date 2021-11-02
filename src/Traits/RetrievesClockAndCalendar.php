@@ -27,8 +27,8 @@ trait RetrievesClockAndCalendar
     }
 
     /**
-     * @param DateTime $start
-     * @param DateTime $end
+     * @param DateTime|null $start
+     * @param DateTime|null $end
      * @return array|Calendar[]
      */
     public function getCalendar(DateTime $start = null, DateTime $end = null): array
@@ -38,8 +38,8 @@ trait RetrievesClockAndCalendar
         }, $this->get(
             'calendar',
             [
-                'start' => $start ? $start->format(DATE_ATOM) : null,
-                'end' => $end ? $end->format(DATE_ATOM) : null
+                'start' => $start?->format(DATE_ATOM),
+                'end' => $end?->format(DATE_ATOM),
             ]
         ));
     }

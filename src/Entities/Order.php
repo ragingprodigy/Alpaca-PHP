@@ -16,56 +16,56 @@ use JsonSerializable;
  */
 class Order implements JsonSerializable
 {
-    private $raw;
+    private array $raw;
     
     /** @var string */
-    private $id;
+    private string $id;
     /** @var string */
-    private $clientOrderId;
+    private string $clientOrderId;
     
     /** @var string|null */
-    private $createdAt;
+    private string|null $createdAt;
     /** @var string|null */
-    private $updatedAt;
+    private string|null $updatedAt;
     /** @var string|null */
-    private $submittedAt;
+    private string|null $submittedAt;
     /** @var string|null */
-    private $filledAt;
+    private string|null $filledAt;
     /** @var string|null */
-    private $expiredAt;
+    private string|null $expiredAt;
     /** @var string|null */
-    private $canceledAt;
+    private string|null $canceledAt;
     /** @var string|null */
-    private $failedAt;
+    private string|null $failedAt;
     
     /** @var string */
-    private $assetId;
+    private string $assetId;
     /** @var string */
-    private $symbol;
+    private string $symbol;
     /** @var string */
-    private $assetClass;
+    private string $assetClass;
     /** @var int */
-    private $quantity;
+    private int $quantity;
     /** @var int */
-    private $filledQuantity;
+    private int $filledQuantity;
     /** @var string */
-    private $type;
+    private string $type;
     /** @var string */
-    private $side;
+    private string $side;
     /** @var string */
-    private $timeInForce;
+    private string $timeInForce;
+    /** @var float|null */
+    private float|null $limitPrice;
     /** @var double|null */
-    private $limitPrice;
-    /** @var double|null */
-    private $stopPrice;
+    private float|null $stopPrice;
 
-    /** @var double|null */
-    private $filledAveragePrice;
+    /** @var float|null */
+    private float|null $filledAveragePrice;
 
     /** @var string */
-    private $status;
+    private string $status;
     /** @var bool */
-    private $extendedHours;
+    private bool $extendedHours;
 
     /**
      * Order constructor.
@@ -298,7 +298,7 @@ class Order implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }
