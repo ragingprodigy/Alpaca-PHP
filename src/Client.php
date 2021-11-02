@@ -36,25 +36,25 @@ class Client
     /**
      * @var string
      */
-    protected $apiKey;
+    protected string $apiKey;
 
     /**
      * @var string
      */
-    protected $apiSecret;
+    protected string $apiSecret;
 
     /** @var HttpClient */
-    private $httpClient;
+    private HttpClient $httpClient;
 
     /**
      * @var string
      */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
      * @var string
      */
-    private $dataBaseUrl;
+    private string $dataBaseUrl;
 
     /**
      * Client constructor.
@@ -129,7 +129,7 @@ class Client
      * @param string $method
      * @param string $endPoint
      * @param array $params
-     * @param array $body
+     * @param array|null $body
      * @return array
      */
     private function sendRequest(string $method, string $endPoint, array $params = [], array $body = null): array
@@ -164,7 +164,7 @@ class Client
      * @param string $endPoint
      * @return string
      */
-    private function buildFullUrl($endPoint): string
+    private function buildFullUrl(string $endPoint): string
     {
         return implode('/', [ $this->getBaseUrl(), $endPoint ]);
     }

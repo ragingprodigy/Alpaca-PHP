@@ -17,52 +17,52 @@ use JsonSerializable;
 class Account implements JsonSerializable
 {
     /** @var array */
-    private $raw;
+    private array $raw;
 
     /** @var string */
-    private $id;
+    private string $id;
     /** @var string */
-    private $status;
+    private string $status;
     /** @var string */
-    private $currency;
-    /** @var double */
-    private $buyingPower;
-    /** @var double */
-    private $cash;
-    /** @var double */
-    private $portfolioValue;
+    private string $currency;
+    /** @var float */
+    private float $buyingPower;
+    /** @var float */
+    private float $cash;
+    /** @var float */
+    private float $portfolioValue;
     /** @var bool */
-    private $patternDayTrader;
+    private bool $patternDayTrader;
     /** @var bool */
-    private $tradeSuspendedByUser;
+    private bool $tradeSuspendedByUser;
     /** @var bool */
-    private $tradingBlocked;
+    private bool $tradingBlocked;
     /** @var bool */
-    private $transfersBlocked;
+    private bool $transfersBlocked;
     /** @var bool */
-    private $accountBlocked;
+    private bool $accountBlocked;
     /** @var string */
-    private $createdAt;
+    private string $createdAt;
     /** @var bool */
-    private $shortingEnabled;
+    private bool $shortingEnabled;
     /** @var int */
-    private $multiplier;
-    /** @var double */
-    private $longMarketValue;
-    /** @var double */
-    private $shortMarketValue;
-    /** @var $double */
-    private $equity;
-    /** @var double */
-    private $lastEquity;
-    /** @var double */
-    private $initialMargin;
-    /** @var double */
-    private $maintenanceMargin;
+    private int $multiplier;
+    /** @var float */
+    private float $longMarketValue;
+    /** @var float */
+    private float $shortMarketValue;
+    /** @var float */
+    private float $equity;
+    /** @var float */
+    private float $lastEquity;
+    /** @var float */
+    private float $initialMargin;
+    /** @var float */
+    private float $maintenanceMargin;
     /** @var int */
-    private $daytradeCount;
-    /** @var double */
-    private $sma;
+    private int $daytradeCount;
+    /** @var float */
+    private float $sma;
 
     /**
      * Account constructor.
@@ -224,9 +224,9 @@ class Account implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return float
      */
-    public function getEquity()
+    public function getEquity(): float
     {
         return $this->equity;
     }
@@ -286,7 +286,7 @@ class Account implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }

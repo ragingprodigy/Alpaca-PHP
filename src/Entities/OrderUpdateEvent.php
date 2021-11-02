@@ -19,19 +19,19 @@ class OrderUpdateEvent implements JsonSerializable, UpdateEvent
 {
 
     /** @var array */
-    private $raw;
+    private array $raw;
 
     /** @var string|null */
-    private $event;
+    private string|null $event;
 
     /** @var float|null */
-    private $price;
+    private float|null $price;
 
     /** @var string|null */
-    private $timestamp;
+    private string|null $timestamp;
 
     /** @var Order */
-    private $order;
+    private Order $order;
 
     public function __construct(array $data)
     {
@@ -96,7 +96,7 @@ class OrderUpdateEvent implements JsonSerializable, UpdateEvent
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }

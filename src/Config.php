@@ -15,29 +15,29 @@ namespace RagingProdigy\Alpaca;
 class Config
 {
     /** @var string string */
-    private $baseUrl;
+    private string $baseUrl;
 
     /** @var string string */
-    private $dataBaseUrl;
+    private string $dataBaseUrl;
 
     /** @var string string */
-    private $apiKey;
+    private string $apiKey;
 
     /** @var string string */
-    private $secretKey;
+    private string $secretKey;
 
     /**
      * Config constructor.
      * @param string $apiKey
      * @param string $secretKey
      * @param bool $paperTrading
-     * @param string $baseUrl
-     * @param string $dataBaseUrl
+     * @param string|null $baseUrl
+     * @param string|null $dataBaseUrl
      */
     public function __construct(
         string $apiKey,
         string $secretKey,
-        $paperTrading = true,
+        bool $paperTrading = true,
         string $baseUrl = null,
         string $dataBaseUrl = null
     ) {

@@ -17,40 +17,40 @@ use JsonSerializable;
 class Position implements JsonSerializable
 {
 
-    private $raw;
+    private array $raw;
 
     /** @var string */
-    private $assetId;
+    private string $assetId;
     /** @var string */
-    private $symbol;
+    private string $symbol;
     /** @var string */
-    private $exchange;
+    private string $exchange;
     /** @var string */
-    private $assetClass;
-    /** @var double */
-    private $averageEntryPrice;
+    private string $assetClass;
+    /** @var float */
+    private float $averageEntryPrice;
     /** @var int */
-    private $quantity;
+    private int $quantity;
     /** @var string */
-    private $side;
-    /** @var double */
-    private $marketValue;
-    /** @var double */
-    private $costBasis;
-    /** @var double */
-    private $unrealizedPl;
-    /** @var double */
-    private $unrealizedPlPc;
-    /** @var double */
-    private $unrealizedIntradayPl;
-    /** @var double */
-    private $unrealizedIntradayPlPc;
-    /** @var double */
-    private $currentPrice;
-    /** @var double */
-    private $lastdayPrice;
-    /** @var double */
-    private $changeToday;
+    private string $side;
+    /** @var float */
+    private float $marketValue;
+    /** @var float */
+    private float $costBasis;
+    /** @var float */
+    private float $unrealizedPl;
+    /** @var float */
+    private float $unrealizedPlPc;
+    /** @var float */
+    private float $unrealizedIntradayPl;
+    /** @var float */
+    private float $unrealizedIntradayPlPc;
+    /** @var float */
+    private float $currentPrice;
+    /** @var float */
+    private float $lastdayPrice;
+    /** @var float */
+    private float $changeToday;
 
     /**
      * Position constructor.
@@ -222,7 +222,7 @@ class Position implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }

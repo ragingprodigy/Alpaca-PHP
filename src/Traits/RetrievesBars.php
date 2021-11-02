@@ -50,8 +50,8 @@ trait RetrievesBars
         $barsResponse = $this->dataGet("bars/$timeFrame", [
             'symbols' => implode(',', $symbols),
             'limit' => $limit,
-            'start' => $start ? $start->format(DATE_ATOM): null,
-            'end' => $end ? $end->format(DATE_ATOM) : null,
+            'start' => $start?->format(DATE_ATOM),
+            'end' => $end?->format(DATE_ATOM),
         ]);
 
         $result = [];

@@ -7,7 +7,7 @@
         "Trading"
     ],
     "require": {
-        "php": "^7.2",
+        "php": "8.*",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
         "ratchet/pawl": "^0.3.4"

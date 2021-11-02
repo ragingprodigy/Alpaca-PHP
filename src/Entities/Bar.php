@@ -18,22 +18,22 @@ class Bar implements JsonSerializable
 {
 
     /** @var array array */
-    private $raw;
+    private array $raw;
 
     /** @var string string */
-    private $symbol;
+    private string $symbol;
     /** @var int */
-    private $t;
+    private int $t;
     /** @var float */
-    private $o;
+    private float $o;
     /** @var float */
-    private $h;
+    private float $h;
     /** @var float */
-    private $l;
+    private float $l;
     /** @var float */
-    private $c;
+    private float $c;
     /** @var int */
-    private $v;
+    private int $v;
 
     /**
      * Bar constructor.
@@ -124,7 +124,7 @@ class Bar implements JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->raw;
     }
